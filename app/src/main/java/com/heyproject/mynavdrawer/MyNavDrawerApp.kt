@@ -40,7 +40,16 @@ fun MyNavDrawerApp() {
             }
         })
     }, drawerContent = {
-        MyDrawerContent(onItemSelected = {})
+        MyDrawerContent(
+            onItemSelected = { title ->
+                scope.launch {
+                    scaffoldState.snackbarHostState.showSnackbar(
+                        message = context.resources.getString(R.string.coming_soon, title),
+                        actionLabel = context.resources.getString(R.string.subscribe_question)
+                    )
+                }
+            },
+        )
     }, drawerGesturesEnabled = scaffoldState.drawerState.isOpen
     ) { paddingValues ->
         Box(
